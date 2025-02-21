@@ -67,17 +67,10 @@ class HiddenMarkovModel:
             forward_probability = sum([
             self.prior_p[state] * self.emission_p[state, self.observation_states_dict[input_observation_states[0]]]
             for state in range(N)
-        ])
+            ])
             return forward_probability
-        
-
-        print("N", N) #debugging
-        print("T", T) #debugging
-
+    
         forward_probability_mat = np.zeros((N, T))
-
-        #debugging
-        print("input_observation_states ", input_observation_states) #input state = sunny
         
         # Step 2. Calculate probabilities
         for state in range(N):
@@ -89,15 +82,10 @@ class HiddenMarkovModel:
             forward_probability = sum([forward_probability_mat[state, T-1] for state in range(N)])
            
         # Step 3. Return final probability 
-        #forward_probability = sum(forward_probability_mat[:, -1]) #debugging (neccessary?)
-        return forward_probability
-        
-
+        return forward_probability        
 
     def viterbi(self, decode_observation_states: np.ndarray) -> list:
         """
-        TODO
-
         This function runs the viterbi algorithm on an input sequence of observation states
 
         Args:
@@ -128,13 +116,6 @@ class HiddenMarkovModel:
         
         # Step 1. Initialize variables
         
-        #store probabilities of hidden state at each step 
-        #store highest probability of any path that leads to state i at time t
-
-        print("viterbi algo debugging")
-        
-        #print("decode_observation_states", decode_observation_states[0]) #debugging
-        #print("self.hidden_states", self.hidden_states) #debugging
 
         N = len(self.hidden_states)
         T = len(decode_observation_states)
@@ -153,11 +134,7 @@ class HiddenMarkovModel:
                 for state in range(N)
                 ])
             return self.hidden_states_dict[best_path_pointer]
-            #return [best_path_pointer]  # The best path is just this single state
-        
-        print("N",N )
-        print("T", T)
-
+            
         viterbi_table = np.zeros((N, T))
 
         #store best path pointers for traceback
@@ -173,23 +150,16 @@ class HiddenMarkovModel:
                                                        for state_prime in range(N)])
                 best_path[state][time_step] = max(
                     range(N), 
-                    key=lambda prev_state: viterbi_table[prev_state][time_step-1] * self.transition_p[prev_state][state]
-                )
+                    key=lambda prev_state: viterbi_table[prev_state][time_step-1] * self.transition_p[prev_state][state])
 
-        #best_path_prob = max(viterbi_table[state][T])  #x needed?
         best_path_pointer = max(range(N),
-                key=lambda state: viterbi_table[state][T-1]
-                )
-        #debugging
-        print("best_path_pointer", best_path_pointer)
+                key=lambda state: viterbi_table[state][T-1])
 
         best_path_list = [best_path_pointer]
 
         #traceback to find best path
-        for time_step in range(T-1, 0, -1):  # Start from the last time step going backward
+        for time_step in range(T-1, 0, -1):  # start from the last time step going backward
             best_path_list.insert(0, best_path[best_path_list[0], time_step])
-        
-        print("best_path_list after traceback insertion ", best_path_list)
 
         #decode best path using dict 
         best_hidden_state_sequence = [self.hidden_states_dict[state] for state in best_path_list]

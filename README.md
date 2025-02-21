@@ -13,6 +13,12 @@ For a helpful refresher on HMMs and the Forward and Viterbi Algorithms you can c
 [here](https://towardsdatascience.com/markov-and-hidden-markov-model-3eec42298d75), and [here](https://pieriantraining.com/viterbi-algorithm-implementation-in-python-a-practical-guide/). 
 
 
+## Description of Methods
+This implementation includes the Forward Algorithm and Viterbi Algorithm for Hidden Markov Models (HMMs).
+
+Forward Algorithm: Computes the probability of an observed sequence given the HMM parameters using dynamic programming. It iteratively updates a probability matrix to efficiently sum over all possible hidden state sequences.
+
+Viterbi Algorithm: Finds the most probable sequence of hidden states given an observed sequence. It maintains a table of the highest probability paths and uses backtracking to reconstruct the optimal state sequence.
 
 
 
@@ -49,17 +55,17 @@ Finally, please update your README with a brief description of your methods.
 ## Task List
 
 [TODO] Complete the HiddenMarkovModel Class methods  <br>
-  [ ] complete the `forward` function in the HiddenMarkovModelClass <br>
-  [ ] complete the `viterbi` function in the HiddenMarkovModelClass <br>
+  [-] complete the `forward` function in the HiddenMarkovModelClass <br>
+  [-] complete the `viterbi` function in the HiddenMarkovModelClass <br>
 
 [TODO] Unit Testing  <br>
-  [ ] Ensure functionality on mini and full weather dataset <br>
-  [ ] Account for edge cases 
+  [-] Ensure functionality on mini and full weather dataset <br>
+  [-] Account for edge cases 
 
 [TODO] Packaging <br>
-  [ ] Update README with description of your methods <br>
-  [ ] pip installable module (optional)<br>
-  [ ] github actions (install + pytest) (optional)
+  [-] Update README with description of your methods <br>
+  [-] pip installable module (optional)<br>
+  [-] github actions (install + pytest) (optional)
 
 
 ## Completing the Assignment 
