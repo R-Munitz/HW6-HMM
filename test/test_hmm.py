@@ -39,7 +39,8 @@ def test_mini_weather():
 
     #assert viterbi path matches expected path
     expected_viterbi_path = mini_input['best_hidden_state_sequence']
-    assert np.array_equal(viterbi_path, expected_viterbi_path[0])
+    assert np.array_equal(viterbi_path, expected_viterbi_path)
+    #assert np.array_equal(viterbi_path, expected_viterbi_path[0])
 
     #edge case 1: empty observation sequence
     empty_observation_sequence = []
@@ -77,6 +78,11 @@ def test_full_weather():
 
     full_weather_hmm=np.load('./data/full_weather_hmm.npz')
     full_weather_input=np.load('./data/full_weather_sequences.npz')
+
+    #create instance of HMM
+    full_weather_hmm = HiddenMarkovModel(full_weather_hmm['observation_states'], full_weather_hmm['hidden_states'],
+                                          full_weather_hmm['prior_p'], full_weather_hmm['transition_p'],
+                                            full_weather_hmm['emission_p'])
 
     #forward probability
     forward_prob = full_weather_hmm.forward(full_weather_input['observation_state_sequence'])
