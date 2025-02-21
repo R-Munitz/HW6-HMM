@@ -40,7 +40,6 @@ def test_mini_weather():
     #assert viterbi path matches expected path
     expected_viterbi_path = mini_input['best_hidden_state_sequence']
     assert np.array_equal(viterbi_path, expected_viterbi_path)
-    #assert np.array_equal(viterbi_path, expected_viterbi_path[0])
 
     #edge case 1: empty observation sequence
     empty_observation_sequence = []
@@ -92,7 +91,7 @@ def test_full_weather():
 
     #assert viterbi path matches expected path
     expected_viterbi_path = full_weather_input['best_hidden_state_sequence']
-    assert np.array_equal(viterbi_path, expected_viterbi_path[0])
+    assert np.array_equal(viterbi_path, expected_viterbi_path)
 
 
     pass
